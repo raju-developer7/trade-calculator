@@ -5,87 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Intraday Trading Calculator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-        .calculator-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            width: 100%;
-        }
-
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-
-        label {
-            display: block;
-            margin: 15px 0 5px;
-            font-weight: bold;
-            color: #555;
-        }
-
-        input[type="number"] {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #218838;
-        }
-
-        h3 {
-            margin-top: 20px;
-            color: #333;
-        }
-
-        p {
-            font-size: 18px;
-            color: #666;
-        }
-
-        p span {
-            font-weight: bold;
-            color: #333;
-        }
-    </style>
+    <link href="./style.css" rel="stylesheet" />
 </head>
 
 <body>
     <div class="calculator-container">
+        <div>
+            <marquee>
+                <a>Reliance Share price: 244rs</a>
+            </marquee>
+        </div>
+
         <h2>Trading Calculator</h2>
+        <i class="fas fa-moon moon-icon" onclick="toggleNightMode()"></i>
+
 
         <label for="amount">Investment Amount (₹):</label>
-        <input type="number" id="amount" placeholder="Enter amount" required>
+        <input type="number" id="amount" placeholder="Enter amount" required default="10000">
 
         <label for="buyPrice">Stock Buying Price (₹):</label>
         <input type="number" id="buyPrice" placeholder="Enter buying price" required>
@@ -103,41 +41,7 @@
         <p>Number of Shares Bought: <span id="shares">0</span></p>
         <p>Return Amount (₹): <span id="return">0.00</span></p>
     </div>
-
-    <script>
-        document.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-            calculate();
-        }
-    });
-
-    function calculate() {
-        const amount = parseFloat(document.getElementById('amount').value);
-        const buyPrice = parseFloat(document.getElementById('buyPrice').value);
-        const sellPrice = parseFloat(document.getElementById('sellPrice').value);
-        const isIntraday = document.getElementById('intraday').checked;
-        const margin = 5; // 5x margin for intraday
-
-        if (!amount || !buyPrice || !sellPrice || buyPrice <= 0 || sellPrice <= 0) {
-            alert("Please enter valid values.");
-            return;
-        }
-
-        // Calculate the number of shares bought
-        const shares = isIntraday ? (amount * margin) / buyPrice : amount / buyPrice;
-
-        // Calculate total cost and total sale value
-        const totalCost = shares * buyPrice;
-        const totalSaleValue = shares * sellPrice;
-
-        // Calculate return amount
-        const returnAmount = totalSaleValue - totalCost;
-
-        // Display results
-        document.getElementById('shares').textContent = shares.toFixed(2);
-        document.getElementById('return').textContent = returnAmount.toFixed(2);
-    }
-    </script>
 </body>
+<script src="./script.js"></script>
 
 </html>
